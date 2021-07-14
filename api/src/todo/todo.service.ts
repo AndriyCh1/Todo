@@ -1,12 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { TodoDto } from './dto/todo.dto';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { TodoDto } from '../dto/todo.dto';
+import { TodoListDto } from '../dto/todo.dto';
 
 @Injectable()
 export class TodosService {
 
-      todos: object[] = [];  
-
-      deletedTodos: object[] = [];
+      todos: TodoDto[] = [];  
 
       create(todo: TodoDto): void {
           this.todos.push({
@@ -15,24 +14,25 @@ export class TodosService {
         });
       }
 
-      getAll(){
-        return this.todos.map((el, index) => ({ id: index, ...el }) );
+      getAll(): TodoListDto[]{
+        return this.todos.map((el, index) => ({ id: index, ...el }));
       }
 
-      getDeleted(){
-        return this.deletedTodos;
-      }
+      update(id: number, todo: TodoDto): TodoDto[]{
+        if (id < 0) { 
+          throw new HttpException("Invalid Request", HttpStatus.BAD_REQUEST)
+        }
 
-      update(id: number, todo: TodoDto){
-        if (id < 0) {return "Некоректні дані"}
         this.todos[id] = {...todo};
+
         return this.todos;
       }
     
-      delete(id: number) {
-        if (id < 0) {return "Некоректні дані"}
-        const deleted = this.todos.splice(id, 1);
-        deleted.forEach(el => this.deletedTodos.push(el));
-        return this.todos;
+      delete(id: number): void {
+        if (id < 0) { 
+          throw new HttpException("Invalid Request", HttpStatus.BAD_REQUEST)
+        }
+
+        this.todos.splice(id, 1);
       }
 }

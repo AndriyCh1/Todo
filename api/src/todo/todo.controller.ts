@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, } from '@nestjs/common';
-import { TodoDto } from './dto/todo.dto';
+import { TodoDto } from '../dto/todo.dto';
 import { TodosService } from './todo.service';
 
 @Controller('todo')
@@ -14,11 +14,6 @@ export class TodosController {
   @Get()
   getAll(){
     return this.todosService.getAll();
-  }
-
-  @Get("/deleted")
-  getDeleted(){
-    return this.todosService.getDeleted();
   }
 
   @Put("/:id") 
