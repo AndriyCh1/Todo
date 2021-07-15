@@ -1,4 +1,3 @@
-
 import Todo from './components/Todo';
 
 function App(): JSX.Element {
