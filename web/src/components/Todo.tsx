@@ -78,24 +78,24 @@ function App(): JSX.Element {
     return data;
   }
 
-  const getCompletedTodos = (): string[][] => {
-    const data: string[][] = [];
+  const getCompletedTodos = (): [string, JSX.Element][] => {
+    const data: [string, JSX.Element][] = [];
 
     todos?.forEach((el) => {
       if (el.completed){
-        data.push([el.description]);
+        data.push([el.description, MainActionButton(el.id, false)]);
       }
     });
 
     return data;
   }
 
-  const getInProcessTodos = (): string[][] => { 
-    const data: string[][] = [];
+  const getInProcessTodos = ():[string, JSX.Element][] => { 
+    const data: [string, JSX.Element][] = [];
 
     todos?.forEach((el) => {
       if (!el.completed){
-        data.push([el.description]);
+        data.push([el.description, MainActionButton(el.id, false)]);
       }
     });
 
@@ -103,12 +103,25 @@ function App(): JSX.Element {
   }
 
   const MainActionButton = (id: number, isCompleted: boolean): JSX.Element => {
+    if (tableType == "completed"){
+      return(
+        <DeleteIcon 
+        style={{
+          cursor: "pointer", 
+          marginRight:"20px",
+          color: red[500], 
+          fontSize: 30}}
+        onClick={() => deleteTodo(id)}
+      />
+      )
+    }
+
+
     return(
       <>
       { isCompleted ? 
       <DoneIcon 
         style={{
-            cursor: "pointer", 
             marginRight:"20px",
             color: green[500], 
             fontSize: 30}}
@@ -150,7 +163,7 @@ function App(): JSX.Element {
     )
   }
 
-  const data = tableType === "all" ? getAllTodos() : 
+  const data:[string, JSX.Element][] = tableType === "all" ? getAllTodos() : 
                tableType === "completed" ? getCompletedTodos() : getInProcessTodos()
 
   return(

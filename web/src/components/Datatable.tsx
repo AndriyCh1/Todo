@@ -1,6 +1,13 @@
 import MUIDataTable from "mui-datatables";
+import { mutate } from "swr";
 
-function Datatable(props:any){
+
+interface IDatatableProps{
+  data: [string, JSX.Element][];
+}
+
+function Datatable({data}: IDatatableProps){ 
+
     const columns = [
         'Опис',
         {
@@ -27,7 +34,7 @@ function Datatable(props:any){
     return(
         <MUIDataTable
         title={"Список завдань"}
-        data={ props.data}
+        data={data}
         columns={columns}
         options= {options}
         />

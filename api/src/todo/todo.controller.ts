@@ -23,6 +23,7 @@ export class TodosController {
 
   @Delete("/:id")
   delete(@Param("id") id: number){
+    console.log(id," -param");
     return this.todosService.delete(id);
   }
 }

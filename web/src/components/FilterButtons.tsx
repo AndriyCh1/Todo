@@ -11,9 +11,13 @@ const useStyles = makeStyles((theme)=>({
     },
   }));
   
-function FilterButtons(props: any){ //????
+
+interface IFilterButtonsProps{
+    changeTableType: React.Dispatch<React.SetStateAction<string>>
+}
+
+function FilterButtons({changeTableType}: IFilterButtonsProps){
     const classes = useStyles();
-    const {changeTableType} = props;
 
     return(
         <Box>
@@ -27,17 +31,18 @@ function FilterButtons(props: any){ //????
             <Button 
                 className={classes.filterButton}
                 variant="contained"
-                onClick={() => changeTableType("completed")}
-            >
-                Завершені
-            </Button>
-            <Button 
-                className={classes.filterButton}
-                variant="contained"
                 onClick={() => changeTableType("inProcess")}
             >
                 Виконуються
             </Button>
+            <Button 
+                className={classes.filterButton}
+                variant="contained"
+                onClick={() => changeTableType("completed")}
+            >
+                Завершені
+            </Button>
+
         </Box>
     )
 }

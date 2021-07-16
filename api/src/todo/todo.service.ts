@@ -19,6 +19,9 @@ export class TodosService {
       }
 
       update(id: number, todo: TodoDto): TodoDto[]{
+        console.log(id, "--uuuuuuuu");
+        
+        
         if (id < 0) { 
           throw new HttpException("Invalid Request", HttpStatus.BAD_REQUEST)
         }
@@ -29,6 +32,8 @@ export class TodosService {
       }
     
       delete(id: number): void {
+        console.log(id, "--dddddddd");
+
         if (id < 0) { 
           throw new HttpException("Invalid Request", HttpStatus.BAD_REQUEST)
         }
