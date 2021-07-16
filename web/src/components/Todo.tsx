@@ -116,7 +116,6 @@ function App(): JSX.Element {
       )
     }
 
-
     return(
       <>
       { isCompleted ? 
